@@ -1,0 +1,116 @@
+#navigation
+{
+	float: left;
+	width: 15%;
+	/*min-width:140px; */
+	background-color: yellow; 
+	margin-top: 0%;
+	/*min-height: 250px; */
+	border:solid 2px #009900;
+	
+	/*-webkit-border-radius:15px;
+	-moz-border-radius:15px;
+	border-radius:15px; */
+	/*-webkit-box-shadow:5px 5px 5px #828282;
+	-moz-box-shadow:5px 5px 5px #828282;
+	box-shadow:5px 5px 5px #828282; */
+}
+
+.mainHeader
+{
+	background-color: #0C5; 
+	border:solid 2px #009900;
+	 text-align: center;
+	 font-family: "Verdana", Times, Sans-serif;
+	 font-size: 25px;
+	 background: red; /* For browsers that do not support gradients */
+     background: -webkit-linear-gradient(red,blue); /* For Safari 5.1 to 6.0 */
+     background: -o-linear-gradient(red,blue); /* For Opera 11.1 to 12.0 */
+     background: -moz-linear-gradient(red,blue); /* For Firefox 3.6 to 15 */
+     background: linear-gradient(red,blue); /* Standard syntax */ 
+}
+
+.mainContent
+{
+	background-color: lightgrey; 
+	/*border:solid 2px #009900; */
+	 text-align: center;
+	 font-family: "Verdana", Times, Sans-serif;
+	 /*font-size: 25px;
+	/* background: red; /* For browsers that do not support gradients */
+
+}
+
+
+
+#wrapper
+{
+	margin: auto;
+	/*width: 80%;
+	min-height: 400px;
+	border: solid 3px;
+	min-width:800px;
+	max-width:900px;
+	-webkit-border-radius:15px;
+	-moz-border-radius:15px;
+	border-radius:15px;
+	-webkit-box-shadow:5px 5px 5px #828282;
+	-moz-box-shadow:5px 5px 5px #828282;
+	box-shadow:5px 5px 5px #828282;
+	padding-bottom:10px; */
+	
+	
+}
+
+.mainHeader a
+{
+	color:white; 
+	 font-size: 25px;
+	/*margin-left:20%; */
+	text-decoration:none;
+	font-family: "Verdana", Times, Sans-serif;
+}
+
+.mainHeader a:hover
+{
+color:white;	
+}
+#comLink a
+{
+   margin:0;
+   color:blue;
+   padding-right:10px;
+   text-decoration:none;
+   
+   	
+}
+
+html
+{
+	background-color:lightyellow;
+}
+
+table
+{
+border-spacing:5;
+border:none;
+/*; */
+text-align:left;	
+
+margin: 0 auto;
+}
+th
+{
+	background-color:lightblue;
+	color:white;
+}
+th:first-of-type
+{
+	/*background-color: #FFC; */
+	border:none;
+}
+td:first-of-type
+{
+	/*background-color:blue; */
+	/*color:white; */
+}
