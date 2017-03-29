@@ -9,13 +9,25 @@ $( function()
 	    //var $genderSpan;
 	
 	$("#btnFilter").click(goToFilterPage);//when filter results button is clicked
+	$("#btnFilterStandings").click(goToStandingsWithFilters);//when filter results button is clicked
 	$("#filterArea input[type='radio']").on("change",getGenderValue); //when radio button filter is changed //#filterForm
 	
 	
-		$minAge = $("#minAgeSpan").text(); //getting values to set selected slider values when page is loaded
+	$minAge = $("#minAgeSpan").text(); //getting values to set selected slider values when page is loaded
+	$maxAge = $("#maxAgeSpan").text();
+		
+	function goToStandingsWithFilters() //action on filter results button click
+	{
+		$minAge = $("#minAgeSpan").text();
+		$minAge=parseInt($minAge);
+		console.log("minAge = "+$minAge);
 		$maxAge = $("#maxAgeSpan").text();
-		//$minAge=parseInt($minAge);
-		//console.log("minAge = "+$minAge);
+		$gender = $("#genderSpan").text();
+		//$raceId = $("#raceIdSpan").text();
+		//console.log("id = "+$raceId+", gender = "+$gender+", min = "+$minAge+", max = "+$maxAge+"");
+		window.location.href = "seriesStandingsPage.php?minAge="+$minAge+"&maxAge="+$maxAge+"&gender="+$gender+"";
+	}
+	
 	function goToFilterPage() //action on filter results button click
 	{
 		$minAge = $("#minAgeSpan").text();
