@@ -1,7 +1,45 @@
-<?php require_once('topNav.html'); ?>
+<?php 
+	require_once('topNav.html'); 
+	$minAge=15;
+	$maxAge=90;
+	$gender = "all";
+	
+	if(isset($_GET['minAge']))
+	{
+		$minAge=$_GET['minAge']; 
+		$maxAge=$_GET['maxAge']; 
+		$gender=$_GET['gender']; 
+	}
+?>
+<head>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+	 <!--  slider links and scripts -->
+	<link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css"> 
+	  <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+	  <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+	  <script  src="js/sliderJs.js"></script>
+</head>
+
 
 <body>
-<h4 class="seriesStandingsTitleClass">Series Standings - All</h3>
+<div style="display:none">
+	  <span id="minAgeSpan"><?php print($minAge) ?></span><!--to store minAge where JQuery can access -->
+	  <span id="maxAgeSpan"><?php print($maxAge) ?></span><!--to store maxAge where JQuery can access -->
+	    <span id="genderSpan"><?php print($gender) ?></span><!--to store maxAge where JQuery can access -->	     
+	</div>
+<h4 class="seriesStandingsTitleClass">Series Standings - <?php if(isset($_GET['minAge'])) 
+												{
+													if($gender === 'f')
+														print("Female ".$minAge." - ".$maxAge);
+													else if($gender === 'm')
+														print("Male ".$minAge." - ".$maxAge);
+													else
+														print("All gender ".$minAge." - ".$maxAge);
+												}
+												else
+												{
+													print("All Competitors");
+												} ?></h4>
 	<?php
 	$namesArray=array();
 	$gendersArray=array();
@@ -19,15 +57,51 @@
 	  $connection=mysqli_connect("localhost","root",""); 
 	  mysqli_select_db($connection,"project_database");
 	 // $raceId=0;
-	
-	   $myquery1 = "
+	if(isset($_GET['minAge'])) //if filter button has been selected
+	{
+		$startDate = strtotime("-".$minAge." year", time()); //getting the start date
+		$startDate = date("Y-m-d",$startDate);
+		$startDate = "'".$startDate."'";
+		$endDate = strtotime("-".$maxAge." year", time()); //getting the end date
+		$endDate = date("Y-m-d",$endDate);
+		$endDate = "'".$endDate."'";
+		
+		//AND series_athlete.gender = '".$gender."'
+			//AND series_athlete.date_of_birth BETWEEN $endDate AND $startDate	
+		if($gender != 'all')
+		{
+			$myquery1 = "
+				SELECT athlete_race_result.ath_name, series_athlete.gender, athlete_race_result.series_ath_id,series_athlete.date_of_birth 
+				FROM athlete_race_result, series_athlete 
+				WHERE athlete_race_result.series_ath_id = series_athlete.athlete_id 
+				AND series_athlete.gender = '".$gender."'
+				AND series_athlete.date_of_birth BETWEEN $endDate AND $startDate	
+				GROUP BY athlete_race_result.series_ath_id
+				ORDER BY athlete_race_result.series_ath_id
+				";
+		}
+		else
+		{
+			$myquery1 = "
+				SELECT athlete_race_result.ath_name, series_athlete.gender, athlete_race_result.series_ath_id,series_athlete.date_of_birth 
+				FROM athlete_race_result, series_athlete 
+				WHERE athlete_race_result.series_ath_id = series_athlete.athlete_id 				
+				AND series_athlete.date_of_birth BETWEEN $endDate AND $startDate	
+				GROUP BY athlete_race_result.series_ath_id
+				ORDER BY athlete_race_result.series_ath_id
+				";
+		}
+	}
+	else
+	{
+		 $myquery1 = "
 				SELECT athlete_race_result.ath_name, series_athlete.gender, athlete_race_result.series_ath_id,series_athlete.date_of_birth 
 				FROM athlete_race_result, series_athlete 
 				WHERE athlete_race_result.series_ath_id = series_athlete.athlete_id 
 				GROUP BY athlete_race_result.series_ath_id
 				ORDER BY athlete_race_result.series_ath_id
 				";
-					
+	}
 	    $result1= mysqli_query($connection,$myquery1);
 	    $i = 0;
 	    while($row = mysqli_fetch_array($result1))
@@ -167,11 +241,12 @@
 		{
 			if($gendersArray[$i] == 'm')
 			{
-				print("<tr bgcolor='#CBDCBF'>");
+				//print("<tr bgcolor='#bfe80b'>");
+				print("<tr>");
 			}
 			else
 			{
-				print("<tr bgcolor='#BDC8B5'>");
+				print("<tr bgcolor='#e1f298'>");
 			}	
 			print("<td>$namesArray[$i]</td>");
 			print("<td>$gendersArray[$i]</td>");
@@ -184,8 +259,45 @@
 			
 		} 
 		print("</table>");
-
+				
 	?>
+	</div>	
+	<hr/>
+	<div id="filterArea">		
+			<p>
+			  <label id='sliderLabelId' for="amount">Age range:</label>
+			  <input type="text" id="amount" readonly style="border:0; color:lightblue; font-weight:bold;">
+			
+			</p>
+			&nbsp&nbsp&nbsp&nbsp
+			<div id="slider-range"></div>
+			<?php
+			if($gender == 'm')
+			{				
+				print('<input type="radio" name="gender" value="m" checked="checked"/> Male');
+				print('<input type="radio" name="gender" value="f"/> Female');
+				print('<input type="radio" name="gender" value="all"/> All');
+			}
+			else if($gender == 'f')
+			{
+				print('<input type="radio" name="gender" value="m" /> Male');
+				print('<input type="radio" name="gender" value="f" checked="checked"/> Female');
+				print('<input type="radio" name="gender" value="all"/> All');
+			}
+			else
+			{
+				print('<input type="radio" name="gender" value="m" /> Male');
+				print('<input type="radio" name="gender" value="f" /> Female');
+				print('<input type="radio" name="gender" value="all" checked="checked"/> All');
+			}
+		  ?>&nbsp&nbsp
+			 <button id="btnFilterStandings"> Filter Results</button>
+			 
+			<div id="filterSelect"></div>
+		
+		<!--</form>-->
+	</div>
+	<hr/>
 </body>
 </html>
 <?php

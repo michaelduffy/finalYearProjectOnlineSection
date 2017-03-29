@@ -74,7 +74,7 @@
 	 <!--  <link rel="stylesheet" href="/resources/demos/style.css"> -->
 	  <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
 	  <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
-	  <script script src="js/sliderJs.js"></script>
+	  <script  src="js/sliderJs.js"></script>
 </head>
 <body>
 	<div style="display:none">
@@ -155,7 +155,7 @@
 			 
 			<div id="filterSelect"></div>
 		
-		<!--</form>->
+		<!--</form>-->
 	</div>
 		
 		
@@ -283,7 +283,8 @@
 			$seriesId = $row['Series ID'];
 			if($seriesId != 0)
 			{
-				print("<tr bgcolor='lightblue'>");
+				//print("<tr bgcolor='lightblue'>");
+				print("<tr bgcolor='#e1f298'>");
 			}
 			else
 			{
@@ -312,11 +313,8 @@
 		?>
 		</table>
 	</div>
+	<hr>
 
-
-	<br/>results page
-	<div><?php print('athId = '.$athId);?></div>
-	
 	<?php mysqli_close($connection);?>
 	
 </body>

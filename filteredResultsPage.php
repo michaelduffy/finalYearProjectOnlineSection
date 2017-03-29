@@ -379,7 +379,8 @@
 			$seriesId = $row['Series ID'];
 			if($seriesId != 0)
 			{
-				print("<tr bgcolor='lightblue'>");
+				//print("<tr bgcolor='lightblue'>");
+				print("<tr bgcolor='#e1f298'>");
 			}
 			else
 			{
@@ -408,10 +409,9 @@
 		?>
 		</table>
 	</div>
+	<hr>
 
-
-	<br/>results page
-	<div><?php print('athId = '.$athId);?></div>
+	
 	<?php mysqli_close($connection);?>
 	
 </body>
