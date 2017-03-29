@@ -217,7 +217,8 @@
 			print("</tr>");
 			
 		} 
-		print("</table>");				
+		print("</table>");
+		mysqli_close($connection);		
 	?>
 	</div>	
 	<hr/>
