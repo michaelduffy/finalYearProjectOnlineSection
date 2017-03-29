@@ -10,36 +10,32 @@
 	$points=0;
 	$seriesId=0;
 	$raceName="";
-	/*$now = time(); // get todays date
-	$todayString = strtotime($now); //todays Date to string
-	$minAge=10;
-	$maxAge=100; */
+	
 	$minAge=15;
 	$maxAge=90;
 	$gender = "all";
 	
 	require_once('topNav.html'); 
-	if(isset($_COOKIE["cookieAthId"])) //sign in cookie
+	if(isset($_COOKIE["cookieAthId"])) //check if sign in cookieis set
 	{
 	   $cookieSet=True;
 	   $athId=$_COOKIE["cookieAthId"];
-	  // print($loggedUser);
 	}
-	
-	  $connection=mysqli_connect("localhost","root",""); 
-	  mysqli_select_db($connection,"project_database");
-	  $raceId=0;
+	//db connection
+	$connection=mysqli_connect("localhost","root",""); 
+	mysqli_select_db($connection,"project_database");
+	$raceId=0;
 	  //////// get first race_id in combobox list for initial page load //////////////////////////////////
-	   $myquery = "
+	$myquery = "
 				select race_id from race 
 				";
-	    $result= mysqli_query($connection,$myquery);
+	$result= mysqli_query($connection,$myquery);
 	    
-	    while($row = mysqli_fetch_array($result))
-		{
-			$raceId = $row['race_id'];//get first race id
-			break; //break out of loop
-		}
+	while($row = mysqli_fetch_array($result))
+	{
+		$raceId = $row['race_id'];//get first race id
+		break; //break out of loop
+	}
 	  ///////////////////////////////////////////////////////////////////////////////////////
 	if(isset( $_POST['raceCombo'] ) )  //for when race is chosen from combobox and form has been self submitted and page reloaded
 	{
@@ -55,44 +51,36 @@
 		{
 			$raceName = $row['race_name'];//get race name
 			break; //break out of loop
-		}
-	
-
+		}	
 ?>
 <html>
-<!--<style>
-
-	
-
-</style> -->
 <head>
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
 	<script src="https://d3js.org/d3.v3.min.js"></script>
 	 <script src="parallel.js"></script>
 	 <!--  slider links and scripts -->
 	<link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css"> 
-	 <!--  <link rel="stylesheet" href="/resources/demos/style.css"> -->
-	  <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
-	  <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
-	  <script  src="js/sliderJs.js"></script>
+	<script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+	<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+	<script  src="js/sliderJs.js"></script>
 </head>
 <body>
 	<div style="display:none">
-        <span id="raceIdSpan"><?php print($raceId) ?></span><!--to store raceId where JQuery can access -->
-	  <span id="minAgeSpan"><?php print($minAge) ?></span><!--to store minAge where JQuery can access -->
-	  <span id="maxAgeSpan"><?php print($maxAge) ?></span><!--to store maxAge where JQuery can access -->
-	    <span id="genderSpan"><?php print($gender) ?></span><!--to store maxAge where JQuery can access -->
-	      <span id="athIdSpan"><?php print($athId) ?></span><!--to store athleteId where JQuery can access -->
+		<span id="raceIdSpan"><?php print($raceId) ?></span><!--to store raceId where JQuery can access -->
+		<span id="minAgeSpan"><?php print($minAge) ?></span><!--to store minAge where JQuery can access -->
+		<span id="maxAgeSpan"><?php print($maxAge) ?></span><!--to store maxAge where JQuery can access -->
+		<span id="genderSpan"><?php print($gender) ?></span><!--to store maxAge where JQuery can access -->
+		<span id="athIdSpan"><?php print($athId) ?></span><!--to store athleteId where JQuery can access -->
 	</div>
 	
 	<div id="raceTitleArea">
-	<?php print("<h4>$raceName</h4>")?>
-	<hr></hr>
+		<?php print("<h4>$raceName</h4>")?>
+		</hr>
 	</div>
 	
 	<div id="vizSection">
 	</div>
-	<hr></hr>
+	<hr/>
 	
 	
 	
@@ -107,10 +95,7 @@
 					$result= mysqli_query($connection,$myquery);
 		    
 					while($row = mysqli_fetch_array($result))//loading the combobox with race names
-					{
-						
-						//$numberSplits = $row['MAX(split_order)'];//gets number of splits
-						
+					{												
 						if(isset( $_POST['raceCombo'] ) )  //for when race is chosen from combobox and form has been self submitted and page reloaded
 						{							
 							$raceId=$_POST['raceCombo']; //get the chosen raceId and assign to $raceId variable
@@ -131,189 +116,129 @@
 				?>
 			</select>	
 			<input type='submit' value='Display Results' />
-		</form>
-		<!--<hr></hr>-->
-			
-	</div>	
-	<div id="filterArea">
-		<!--<form id='filterForm' method='post' action=''>--><!--action='filteredResultsPage.php'
-			<p>Filters will apply to only to series athletes</p>-->
-			<p>
-			  <label id='sliderLabelId' for="amount">Age range:</label>
-			  <input type="text" id="amount" readonly style="border:0; color:lightblue; font-weight:bold;">
-			
-			</p>
-			&nbsp&nbsp&nbsp&nbsp
-			<div id="slider-range"></div>
-			
-			  <input id="radioMale" type="radio" name="gender" value="m"> Male
-			  <input id="radioFemale" type="radio" name="gender" value="f"> Female
-			  <input id="radioAll" type="radio" name="gender" value="all" checked='checked'> All
-			 <!-- <input type='submit' value='Filter Results' />-->
-			&nbsp&nbsp
-			 <button id="btnFilter"> Filter Results</button>
-			 
-			<div id="filterSelect"></div>
-		
-		<!--</form>-->
+		</form>		
 	</div>
-		
-		
-	<!--div-->
 	
-	
+	<div id="filterArea">
+		<p>
+		  <label id='sliderLabelId' for="amount">Age range:</label>
+		  <input type="text" id="amount" readonly style="border:0; color:lightblue; font-weight:bold;">			
+		</p>
+		&nbsp&nbsp&nbsp&nbsp
+		<div id="slider-range"></div>			
+		  <input id="radioMale" type="radio" name="gender" value="m"> Male
+		  <input id="radioFemale" type="radio" name="gender" value="f"> Female
+		  <input id="radioAll" type="radio" name="gender" value="all" checked='checked'> All
+		  &nbsp&nbsp
+		 <button id="btnFilter"> Filter Results</button>
+		 
+		<!--<div id="filterSelect"></div> -->
+	</div>
+						
 	<div id="resultSection">
-	<hr></hr>
-	
+	<hr/>	
 		<table id="resultTable" border = "1">
 		<?php
-		  ////////////////////////////// //getting the number of splits for particular race ////////////
-		    $myquery = "
-					select MAX(split_order) from race_split_result where race_id =$raceId
+			  ////////////////////////////// //getting the number of splits for particular race ////////////
+			    $myquery = "
+						select MAX(split_order) from race_split_result where race_id =$raceId
+						";
+			    $result= mysqli_query($connection,$myquery);
+			    
+			    while($row = mysqli_fetch_array($result))
+				{
+					$numberSplits = $row['MAX(split_order)'];//gets number of splits
+				}
+			/////////////////////  store split names in array   ////////////////////////////////////////////
+			for($i=0;$i<$numberSplits;$i++)
+			{			
+				$splitNames[$i]= getSplitName($connection,$raceId,$i+1); //getting the split names
+			}
+			/////////////////////////////////                Build query dynamically and execute       ///////////////////////////////////////////////////////////////////////////
+			if($numberSplits>1)
+			{
+				$splitOrder = 1;	
+							
+				$myquery = "
+				select athlete_race_result.position, 
+				athlete_race_result.athlete_race_no,
+				athlete_race_result.ath_name,";						
+				for($i=0;$i<$numberSplits;$i++)
+				{ 
+					$myquery = $myquery."
+					GROUP_CONCAT(if(race_split_result.split_order = $splitOrder,race_split_result.split_time,NULL)) AS '$splitNames[$i]',
 					";
-		    $result= mysqli_query($connection,$myquery);
-		    
-		    while($row = mysqli_fetch_array($result))
-			{
-				$numberSplits = $row['MAX(split_order)'];//gets number of splits
-			}
-			//print("number splits = $numberSplits");
-		/////////////////////  store split names in array   ////////////////////////////////////////////
-		for($i=0;$i<$numberSplits;$i++)
-		{			
-			$splitNames[$i]= getSplitName($connection,$raceId,$i+1); //getting the split names
-		}
-		/////////////////////////////////                Build query dynamically and execute       ///////////////////////////////////////////////////////////////////////////
-		if($numberSplits>1)
-		{
-			$splitOrder = 1;	
-			//original
-			/*			
-			$myquery = "
-			select athlete_race_result.position, 
-			athlete_race_result.athlete_race_no,
-			athlete_race_result.ath_name,";						
-			for($i=0;$i<$numberSplits;$i++)
-			{ 
+					$splitOrder++;
+				}			
 				$myquery = $myquery."
-				GROUP_CONCAT(if(race_split_result.split_order = $splitOrder,race_split_result.split_time,NULL)) AS '$splitNames[$i]',
-				";
-				$splitOrder++;
-			}			
-			$myquery = $myquery."
-			athlete_race_result.overall_time AS 'Finish Time',
-			athlete_race_result.ath_race_points AS 'Race Points',
-			athlete_race_result.series_ath_id AS 'Series ID'
-			FROM athlete_race_result, race_split_result
-			WHERE athlete_race_result.athlete_race_no = race_split_result.athlete_race_no
-			AND athlete_race_result.race_id = $raceId
-			GROUP BY athlete_race_result.athlete_race_no
-			ORDER BY athlete_race_result.position;
-			";  */
-			
-			$myquery = "
-			select athlete_race_result.position, 
-			athlete_race_result.athlete_race_no,
-			athlete_race_result.ath_name,";						
-			for($i=0;$i<$numberSplits;$i++)
-			{ 
-				$myquery = $myquery."
-				GROUP_CONCAT(if(race_split_result.split_order = $splitOrder,race_split_result.split_time,NULL)) AS '$splitNames[$i]',
-				";
-				$splitOrder++;
-			}			
-			$myquery = $myquery."
-			athlete_race_result.overall_time AS 'Finish Time',
-			athlete_race_result.ath_race_points AS 'Race Points',
-			athlete_race_result.series_ath_id AS 'Series ID'
-			FROM athlete_race_result, race_split_result
-			WHERE  athlete_race_result.race_id = race_split_result.race_id
-			AND athlete_race_result.athlete_race_no = race_split_result.athlete_race_no
-			AND race_split_result.race_id = $raceId
-			GROUP BY athlete_race_result.athlete_race_no
-			ORDER BY athlete_race_result.position;
-			"; 
-			//altered
-			/*$myquery = "
-			select athlete_race_result.series_ath_id AS id,
-			athlete_race_result.position, ";						
-			for($i=0;$i<$numberSplits;$i++)
-			{ 
-				$myquery = $myquery."
-				GROUP_CONCAT(if(race_split_result.split_order = $splitOrder,TIME_TO_SEC(race_split_result.split_time)/60,NULL)) AS '$splitNames[$i](mins)',
-				";
-				$splitOrder++;
-			}			
-			$myquery = $myquery."
-			TIME_TO_SEC(athlete_race_result.overall_time)/60 AS 'Finish Time(mins)'
-			FROM athlete_race_result, race_split_result
-			WHERE  athlete_race_result.race_id = race_split_result.race_id
-			AND athlete_race_result.athlete_race_no = race_split_result.athlete_race_no
-			AND race_split_result.race_id = $raceId
-			GROUP BY athlete_race_result.athlete_race_no
-			ORDER BY athlete_race_result.position;
-			"; */
-			
-		}
-		else //non dynamic query
-		{
-			$myquery = "SELECT position,
-					ath_name, 
-					athlete_race_no, 
-					overall_time AS 'Finish Time', 
-					ath_race_points AS 'Race Points', 
-					series_ath_id AS 'Series ID'
-					FROM athlete_race_result
-					WHERE race_id = $raceId
-					ORDER BY position";
-		}
-		$result= mysqli_query($connection,$myquery);
-		/////////////////////////////////////////      build table from query         /////////////////////////////////////////////////////////////////////
-		print("<th>position</th><th>Name</th><th>Race No.</th>");
-		if($numberSplits>1)
-		{
-			for($i=0;$i<$numberSplits;$i++)
-			{
-				print("<th>$splitNames[$i]</th>");
+				athlete_race_result.overall_time AS 'Finish Time',
+				athlete_race_result.ath_race_points AS 'Race Points',
+				athlete_race_result.series_ath_id AS 'Series ID'
+				FROM athlete_race_result, race_split_result
+				WHERE  athlete_race_result.race_id = race_split_result.race_id
+				AND athlete_race_result.athlete_race_no = race_split_result.athlete_race_no
+				AND race_split_result.race_id = $raceId
+				GROUP BY athlete_race_result.athlete_race_no
+				ORDER BY athlete_race_result.position;
+				"; 						
 			}
-		}
-		print("<th>Overall Time</th><th>Race Points</th><th>Series ID</th>");
-		while($row = mysqli_fetch_array($result))
-		{
-			$seriesId = $row['Series ID'];
-			if($seriesId != 0)
+			else //non dynamic query
 			{
-				//print("<tr bgcolor='lightblue'>");
-				print("<tr bgcolor='#e1f298'>");
+				$myquery = "SELECT position,
+						ath_name, 
+						athlete_race_no, 
+						overall_time AS 'Finish Time', 
+						ath_race_points AS 'Race Points', 
+						series_ath_id AS 'Series ID'
+						FROM athlete_race_result
+						WHERE race_id = $raceId
+						ORDER BY position";
 			}
-			else
-			{
-				print("<tr>");
-			}
-			//print("<tr>");
-			$pos = $row['position'];
-			$name = $row['ath_name'];
-			$raceNo = $row['athlete_race_no'];
-			print("<td>$pos</td><td>$name</td><td>$raceNo</td>");
+			$result= mysqli_query($connection,$myquery);
+			/////////////////////////////////////////      build table from query         /////////////////////////////////////////////////////////////////////
+			print("<th>position</th><th>Name</th><th>Race No.</th>");
 			if($numberSplits>1)
 			{
 				for($i=0;$i<$numberSplits;$i++)
 				{
-					$splitTime = $row[$splitNames[$i]];
-					print("<td>$splitTime</td>");
+					print("<th>$splitNames[$i]</th>");
 				}
 			}
-			$overallTime = $row['Finish Time'];
-			$points= $row['Race Points'];
-			
-			print("<td>$overallTime</td><td>$points</td><td>$seriesId</td>");
-			print("</tr>");
-		}
-			
+			print("<th>Overall Time</th><th>Race Points</th><th>Series ID</th>");
+			while($row = mysqli_fetch_array($result))
+			{
+				$seriesId = $row['Series ID'];
+				if($seriesId != 0)
+				{
+					//print("<tr bgcolor='lightblue'>");
+					print("<tr bgcolor='#e1f298'>");
+				}
+				else
+				{
+					print("<tr>");
+				}
+				$pos = $row['position'];
+				$name = $row['ath_name'];
+				$raceNo = $row['athlete_race_no'];
+				print("<td>$pos</td><td>$name</td><td>$raceNo</td>");
+				if($numberSplits>1)
+				{
+					for($i=0;$i<$numberSplits;$i++)
+					{
+						$splitTime = $row[$splitNames[$i]];
+						print("<td>$splitTime</td>");
+					}
+				}
+				$overallTime = $row['Finish Time'];
+				$points= $row['Race Points'];
+				
+				print("<td>$overallTime</td><td>$points</td><td>$seriesId</td>");
+				print("</tr>");
+			}			
 		?>
 		</table>
 	</div>
-	<hr>
+	<hr/>
 
 	<?php mysqli_close($connection);?>
 	
