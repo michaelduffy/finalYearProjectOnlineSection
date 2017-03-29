@@ -4,7 +4,7 @@
 	$maxAge=90;
 	$gender = "all";
 	
-	if(isset($_GET['minAge']))
+	if(isset($_GET['minAge'])) //if filter option has been selected get this info
 	{
 		$minAge=$_GET['minAge']; 
 		$maxAge=$_GET['maxAge']; 
@@ -22,12 +22,12 @@
 
 
 <body>
-<div style="display:none">
-	  <span id="minAgeSpan"><?php print($minAge) ?></span><!--to store minAge where JQuery can access -->
-	  <span id="maxAgeSpan"><?php print($maxAge) ?></span><!--to store maxAge where JQuery can access -->
+	<div style="display:none"> <!-- area to store values accessable by JQuery that will not be displayed on screen -->
+	    <span id="minAgeSpan"><?php print($minAge) ?></span><!--to store minAge where JQuery can access -->
+	    <span id="maxAgeSpan"><?php print($maxAge) ?></span><!--to store maxAge where JQuery can access -->
 	    <span id="genderSpan"><?php print($gender) ?></span><!--to store maxAge where JQuery can access -->	     
 	</div>
-<h4 class="seriesStandingsTitleClass">Series Standings - <?php if(isset($_GET['minAge'])) 
+	<h4 class="seriesStandingsTitleClass">Series Standings - <?php if(isset($_GET['minAge'])) 
 												{
 													if($gender === 'f')
 														print("Female ".$minAge." - ".$maxAge);
@@ -51,24 +51,22 @@
 	$totalAthPoints=0;
 	$numberScoringRaces=2;
 	$currentAthId=0;
-	$currentDob;
-	//$yearStart="2017-01-01";
+	$currentDob;	
 	
-	  $connection=mysqli_connect("localhost","root",""); 
-	  mysqli_select_db($connection,"project_database");
-	 // $raceId=0;
+	//db connection
+	$connection=mysqli_connect("localhost","root",""); 
+	mysqli_select_db($connection,"project_database");
+	
 	if(isset($_GET['minAge'])) //if filter button has been selected
 	{
-		$startDate = strtotime("-".$minAge." year", time()); //getting the start date
+		$startDate = strtotime("-".$minAge." year", time()); //getting the start date from minAge number
 		$startDate = date("Y-m-d",$startDate);
 		$startDate = "'".$startDate."'";
-		$endDate = strtotime("-".$maxAge." year", time()); //getting the end date
+		$endDate = strtotime("-".$maxAge." year", time()); //getting the end date rom maxAge number
 		$endDate = date("Y-m-d",$endDate);
 		$endDate = "'".$endDate."'";
-		
-		//AND series_athlete.gender = '".$gender."'
-			//AND series_athlete.date_of_birth BETWEEN $endDate AND $startDate	
-		if($gender != 'all')
+				
+		if($gender != 'all') //if male or female has been selected use this query
 		{
 			$myquery1 = "
 				SELECT athlete_race_result.ath_name, series_athlete.gender, athlete_race_result.series_ath_id,series_athlete.date_of_birth 
@@ -80,7 +78,7 @@
 				ORDER BY athlete_race_result.series_ath_id
 				";
 		}
-		else
+		else //otherwise use this query
 		{
 			$myquery1 = "
 				SELECT athlete_race_result.ath_name, series_athlete.gender, athlete_race_result.series_ath_id,series_athlete.date_of_birth 
@@ -92,7 +90,7 @@
 				";
 		}
 	}
-	else
+	else //first loading of page construct this query
 	{
 		 $myquery1 = "
 				SELECT athlete_race_result.ath_name, series_athlete.gender, athlete_race_result.series_ath_id,series_athlete.date_of_birth 
@@ -102,38 +100,25 @@
 				ORDER BY athlete_race_result.series_ath_id
 				";
 	}
-	    $result1= mysqli_query($connection,$myquery1);
-	    $i = 0;
-	    while($row = mysqli_fetch_array($result1))
-		{
-			
-			//$today = date("y-m-d");
-						
-			//print("$today");
+	$result1= mysqli_query($connection,$myquery1);
+	$i = 0;
+	while($row = mysqli_fetch_array($result1)) //traverse down through result set
+	{
 			$namesArray[$i] = $row['ath_name'];
 			$seriesIdArray[$i] = $row['series_ath_id'];
 			$currentAthId = $row['series_ath_id'];
 			$currentDob = $row['date_of_birth'];
 			$gendersArray[$i] = $row['gender'];
-			//$currentDob = date("Y-m-d");
+
 			//////////////////// calculating competitor age ///////////////////////////////
 			$now = time(); // get todays date
 			$your_date = strtotime($currentDob); //get competitor dob as string
 			$datediff = $now - $your_date; //get difference in seconds
 
-			//echo floor($datediff / (60 * 60 * 24));
 			$numDays = floor($datediff / (60 * 60 * 24)); //convert to days
 			$numYears = floor($numDays/365); // convert days to years
 			$agesArray[$i] = $numYears; //assign to ages array
-			//echo ",,,,,";
-			//echo $numYears;
-			
-			//$dateDiff = $today-$currentDob;
-		//	print("today = ".$now.",,,,currentDOB = ".$your_date.",,,,,dateDiff = ".$datediff."");
-			//////////////////////////////////////////////////////////////////////////////////////////////////
-		//	print("<br>");
-			
-			
+									
 			/////////////////////////////////////get competetitors total points for best n($numberScoringRaces) races///////////////////////////////////////////////////////////////////////////////////
 			 $myquery2 = "
 				SELECT SUM(subt.ath_race_points) AS 'total_points'
@@ -162,30 +147,18 @@
 			$noCompletedRacesArray[$i] = $noCompletedRaces;
 			//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 			$i++;
-		}
+	}//end of while loop
 		
-		/*for($i=0;$i<count($namesArray);$i++) //testing gotten values // need sorting now
-		{
-			print("$i = ".$i.",,,");
-			print("name =  ".$namesArray[$i].",,,,id =  ".$seriesIdArray[$i].",,,,,points =  ".$pointsArray[$i].",,,,,no comp races =  ".$noCompletedRacesArray[$i].",,,,,comp age =  ".$agesArray[$i]."");
-			print("<br>");
-		} */
 		///////////////////////////// sort parallel arrays based on points low to high/////////////////////////////////////////////////
 		$unSorted = true;
-		/*$nameTemp="";
-		$ageTemp="";
-		$idTemp=0;
-		$pointsTemp=0;
-		$racesCompletedTemp=0;*/
 		$temp;
 		
 		while($unSorted)
 		{
-			//print("entered1 while,,,,,,,,");
 			$unSorted = false;
 			for($i=0;$i<count($pointsArray)-1;$i++) // sorting now with bubble sort
 			{
-				if($pointsArray[$i]<$pointsArray[$i+1])
+				if($pointsArray[$i]<$pointsArray[$i+1]) //if swap is required based on points array values
 				{
 					///// swap in pointsArray/////
 					$temp = $pointsArray[$i];
@@ -217,34 +190,20 @@
 					$gendersArray[$i] = $gendersArray[$i+1];
 					$gendersArray[$i+1] = $temp;
 					
-					
-					$unSorted = true;
+					$unSorted = true; //swaps required so arrays are still unsorted
 				}
 			}
 		}
-		
-		/*for($i=0;$i<count($namesArray);$i++) //testing gotten values // need sorting now
-		{
-			
-			print("".$pointsArray[$i].",,,,");
-			print("<br>");
-			print("".$namsArray[$i].",,,,");
-			print("<br>");
-			print("".$pointsArray[$i].",,,,");
-			print("<br>");
-			
-		}*/
-		
+		//construct table using array values /////////////////		
 		print("<table class='tableClass' border =1>");
 		print("<tr><th>Name</th><th>Gender</th><th>Age</th><th>Series ID</th><th>Total Points</th><th>Races Completed</th><th>Race History</th></tr>");
 		for($i=0;$i<count($namesArray);$i++) //testing gotten values // need sorting now
 		{
 			if($gendersArray[$i] == 'm')
 			{
-				//print("<tr bgcolor='#bfe80b'>");
 				print("<tr>");
 			}
-			else
+			else //if female competitor highlight using differnt background colour to male
 			{
 				print("<tr bgcolor='#e1f298'>");
 			}	
@@ -258,48 +217,42 @@
 			print("</tr>");
 			
 		} 
-		print("</table>");
-				
+		print("</table>");				
 	?>
 	</div>	
 	<hr/>
-	<div id="filterArea">		
+	<div id="filterArea">	<!-- div area to house filtering objects -->	
 			<p>
 			  <label id='sliderLabelId' for="amount">Age range:</label>
 			  <input type="text" id="amount" readonly style="border:0; color:lightblue; font-weight:bold;">
 			
 			</p>
 			&nbsp&nbsp&nbsp&nbsp
-			<div id="slider-range"></div>
+			<div id="slider-range"></div> <!-- div area to house dual slider -->	
 			<?php
-			if($gender == 'm')
-			{				
-				print('<input type="radio" name="gender" value="m" checked="checked"/> Male');
-				print('<input type="radio" name="gender" value="f"/> Female');
-				print('<input type="radio" name="gender" value="all"/> All');
-			}
-			else if($gender == 'f')
-			{
-				print('<input type="radio" name="gender" value="m" /> Male');
-				print('<input type="radio" name="gender" value="f" checked="checked"/> Female');
-				print('<input type="radio" name="gender" value="all"/> All');
-			}
-			else
-			{
-				print('<input type="radio" name="gender" value="m" /> Male');
-				print('<input type="radio" name="gender" value="f" /> Female');
-				print('<input type="radio" name="gender" value="all" checked="checked"/> All');
-			}
-		  ?>&nbsp&nbsp
+				if($gender == 'm')
+				{				
+					print('<input type="radio" name="gender" value="m" checked="checked"/> Male');
+					print('<input type="radio" name="gender" value="f"/> Female');
+					print('<input type="radio" name="gender" value="all"/> All');
+				}
+				else if($gender == 'f')
+				{
+					print('<input type="radio" name="gender" value="m" /> Male');
+					print('<input type="radio" name="gender" value="f" checked="checked"/> Female');
+					print('<input type="radio" name="gender" value="all"/> All');
+				}
+				else
+				{
+					print('<input type="radio" name="gender" value="m" /> Male');
+					print('<input type="radio" name="gender" value="f" /> Female');
+					print('<input type="radio" name="gender" value="all" checked="checked"/> All');
+				}
+			?>&nbsp&nbsp
 			 <button id="btnFilterStandings"> Filter Results</button>
 			 
-			<div id="filterSelect"></div>
-		
-		<!--</form>-->
+			 <!--	<div id="filterSelect"></div>  -->		
 	</div>
 	<hr/>
 </body>
 </html>
-<?php
-
-?>
