@@ -1,3 +1,64 @@
+#slider-range
+{
+		background-color:lightblue;
+		width:200;
+		border-top: 2px solid black;
+		border-right: 2px solid black;
+		border-bottom: 2px solid black;
+		border-left: 2px solid black;
+		float:left;
+}
+
+#filterArea
+{
+	 font-family: "Verdana", Times, Sans-serif;
+}
+
+#selectionArea
+{
+
+}
+
+svg {
+	  font: 15px sans-serif;
+	}
+
+	.background path {
+	  fill: none;
+	  stroke: #ddd;
+	  shape-rendering: crispEdges;
+	}
+
+	.foreground path {
+	  fill: none;
+	  stroke: red; /* stroke: steelblue;*/
+	   stroke-width="10";
+	}
+	
+	.foreground2 path {
+	  fill: none;
+	  stroke: lightblue;
+	/*  shape-rendering: auto;*/
+	}
+
+	.brush .extent {
+	  fill-opacity: .3;
+	  stroke: #fff;
+	  shape-rendering: crispEdges;
+	}
+
+	.axis line,
+	.axis path {
+	  fill: none;
+	  stroke: #000;
+	  shape-rendering: auto;
+	 
+	}
+
+	.axis text {
+	  text-shadow: 0 1px 0 #fff, 1px 0 0 #fff, 0 -1px 0 #fff, -1px 0 0 #fff;
+	}
+
 #navigation
 {
 	float: left;
@@ -18,16 +79,18 @@
 
 .mainHeader
 {
+	
+   
 	background-color: #0C5; 
 	border:solid 2px #009900;
 	 text-align: center;
 	 font-family: "Verdana", Times, Sans-serif;
-	 font-size: 25px;
+	 font-size: 20px;
 	 background: red; /* For browsers that do not support gradients */
-     background: -webkit-linear-gradient(red,blue); /* For Safari 5.1 to 6.0 */
-     background: -o-linear-gradient(red,blue); /* For Opera 11.1 to 12.0 */
-     background: -moz-linear-gradient(red,blue); /* For Firefox 3.6 to 15 */
-     background: linear-gradient(red,blue); /* Standard syntax */ 
+     background: -webkit-linear-gradient(red,lightblue); /* For Safari 5.1 to 6.0 */
+     background: -o-linear-gradient(red,lightblue); /* For Opera 11.1 to 12.0 */
+     background: -moz-linear-gradient(red,lightblue); /* For Firefox 3.6 to 15 */
+     background: linear-gradient(red,lightblue); /* Standard syntax */ 
 }
 
 .mainContent
@@ -65,7 +128,7 @@
 .mainHeader a
 {
 	color:white; 
-	 font-size: 25px;
+	 font-size: 15px;
 	/*margin-left:20%; */
 	text-decoration:none;
 	font-family: "Verdana", Times, Sans-serif;
@@ -73,44 +136,137 @@
 
 .mainHeader a:hover
 {
-color:white;	
+	color:black;	
 }
-#comLink a
+
+#slider-range
 {
-   margin:0;
-   color:blue;
+	width: 30%;
+	 margin-left:90px;
+}
+#filterSelect
+{
+	
+}
+#sliderLabelId
+{
+	margin-left:90px;
+}
+#filterArea
+{
+	/*float:right;*/
+}
+
+#selectionArea
+{
+	/*width: 40%;
+	float:left;*/
+	 font-family: "Verdana", Times, Sans-serif;
+	 font-size: 15px;
+  margin-left:90px;
+   margin-top:20px;
+    margin-bottom:20px;
+  /* color:blue;
    padding-right:10px;
-   text-decoration:none;
-   
-   	
+   text-decoration:none;*/
+}
+#raceTitleArea
+{
+	 font-family: "Verdana", Times, Sans-serif;
+	text-align:center;	
+  /* color:blue;
+   padding-right:10px;
+   text-decoration:none;*/
+}
+
+.tableClass
+{
+	font-family: "Verdana", Times, Sans-serif;
+	 font-size: 13px;
+}
+
+#historyTitleArea
+{
+	 font-family: "Verdana", Times, Sans-serif;
+	text-align:center;	
+  /* color:blue;
+   padding-right:10px;
+   text-decoration:none;*/
+}
+
+#resultTable
+{
+	font-family: "Verdana", Times, Sans-serif;
+	 font-size: 12px;
+}
+
+.seriesStandingsTitleClass
+{
+	 font-family: "Verdana", Times, Sans-serif;
+	text-align:center;	
+}
+
+
+.historyBtnClass
+{
+	 font: 11px Arial;
+	 font-family: "Verdana", Times, Sans-serif;
+  text-decoration: none;
+  background-color: #EEEEEE;
+  color: #333333;
+  padding: 2px 6px 2px 6px;
+  border-top: 1px solid #CCCCCC;
+  border-right: 1px solid #333333;
+  border-bottom: 1px solid #333333;
+  border-left: 1px solid #CCCCCC;
+}
+
+button
+{
+	height:25px;
+	width:130px;
+	 font-size: 15px;
 }
 
 html
 {
-	background-color:lightyellow;
+	background-color:#EBG6E3;
+
 }
 
 table
 {
-border-spacing:5;
+	/*background: #F9E7D0;*/
+border-spacing:5px;
 border:none;
 /*; */
 text-align:left;	
-
+ font-family: "Verdana", Times, Sans-serif;
 margin: 0 auto;
 }
 th
 {
-	background-color:lightblue;
+	background-color:#5DC4D0;
 	color:white;
 }
 th:first-of-type
 {
 	/*background-color: #FFC; */
-	border:none;
+	/*border:none;*/
 }
 td:first-of-type
 {
 	/*background-color:blue; */
 	/*color:white; */
+}
+input
+{
+	 font-family: "Verdana", Times, Sans-serif;
+	 font-size: 15px;
+}
+
+select
+{
+	 font-family: "Verdana", Times, Sans-serif;
+	 font-size: 15px;
 }
