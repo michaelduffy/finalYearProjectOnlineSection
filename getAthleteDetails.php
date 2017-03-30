@@ -1,11 +1,10 @@
 <?php
 
 	if(isset( $_GET['addSuccess'] ) )
-	{
-		$addStatus = $_GET['addSuccess'];
-		//print("addStatus = "$addStatus);
+	{	
+		$addStatus = $_GET['addSuccess'];//check if athlete registration was successful from addAthlete page
 		
-		if($addStatus === "pass")
+		if($addStatus === "pass") //if add to database was successful
 		{
 			$athId = $_GET['id'];
 			$firstName = $_GET['firstName'];
@@ -33,25 +32,20 @@
 			\nPhone Number = $phone
 			\nEmail = $email
 			\nAccount Password = $password";
-			
-			
-			
-			
+												
 			print("<script language='javascript'>");
-			//print('alert("Success!! You have been successfully registered as an athlete in the race series")');
-			print('alert("Success!! You have been successfully registered as an athlete in the race series\nAthlete Series  ID - '.$athId.'\nAthlete Name - '.$firstName.' '.$lastName.'\nAddress 1 - '.$add1.'\nAddress 2 - '.$add2.'\nAddress 3 - '.$add3.'\nAthlete County - '.$county.'\nAthlete Gender - '.$gender.'\nDate of Birth - '.$dob.'\nPhone Number - '.$phone.'\nEmail Address - '.$email.'\nPassword - '.$password.'")'); 
-			//print('alert("Success athId = '.$athId.'")');		
+			print('alert("Success!! You have been successfully registered as an athlete in the race series\nAthlete Series  ID - '.$athId.'\nAthlete Name - '.$firstName.' '.$lastName.'\nAddress 1 - '.$add1.'\nAddress 2 - '.$add2.'\nAddress 3 - '.$add3.'\nAthlete County - '.$county.'\nAthlete Gender - '.$gender.'\nDate of Birth - '.$dob.'\nPhone Number - '.$phone.'\nEmail Address - '.$email.'\nPassword - '.$password.'")'); 		
 			print("</script>");
-			// mail($admin_email, "$subject", $comment, "From:" . $email);
-			mail($email, "subject", $comment, "From:" . $emailSender);
+			//send email to user
+			mail($email, "Race Series Registration", $comment, "From:" . $emailSender);
 		}
-		else if($addStatus === "fail")
+		else if($addStatus === "fail")//if add to database was NOT successful
 		{
 			print("<script language='javascript'>");
 			print('alert("Error!! We were unable to add you to our race series database at this time due to a technical error!! Please try again")');
 			print("</script>");
 		}
-		else if($addStatus === "invalid")
+		else if($addStatus === "invalid")//if user attempted to add an athlete already existing in the database
 		{
 			print("<script language='javascript'>");
 			print('alert("Error!! You appear as already existing in our athlete database!!")');
@@ -70,13 +64,12 @@
 		 </head>");	
 	print("<body>");
 		print("<div id='wrapper'>");
-			
-			require_once('topNav.html');
-			
+			require_once('topNav.html');			
 			print("</br>");
 			
+			//construct table that will contain user registration form
 			print("<table border=1> <caption><b>Enter Details Below</b></caption>");
-						
+				//county combobox
 				 $countyCombo = "<select name='county'> 
 							<option value='Donegal'>Donegal</option>
 							<option value='Sligo'>Sligo</option>
@@ -87,7 +80,7 @@
 							<option value='Mayo'>Mayo</option>
 							<option value='Roscommon'>Roscommon</option>
 						   </select>";
-						   
+				//gender radio buttons		   
 				$genderRadio = "<input type='radio' name='gender' value='m' />Male <input type='radio' name='gender' value='f'> Female";	
 				
 				 print("<form method='post' action='addAthlete.php'>");
