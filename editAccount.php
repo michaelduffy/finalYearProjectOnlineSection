@@ -1,13 +1,10 @@
 <?php
-	if(isset($_COOKIE["cookieAthId"]))
-	{
-	  
+	if(isset($_COOKIE["cookieAthId"])) //checking if user is logged in
+	{	 
+		//getting edited details
 		$athId=$_COOKIE["cookieAthId"];
-		print("id= $athId");
-		print("</br>");
 		$firstName = $_POST['txtFirstName'];
 		$lastName = $_POST['txtLastName'];
-		print("last name = $lastName");
 		$add1 = $_POST['txtAddress1'];
 		$add2 = $_POST['txtAddress2'];
 		$add3 = $_POST['txtAddress3'];
@@ -18,12 +15,11 @@
 		$email = $_POST['txtEmail'];
 		$password = $_POST['txtPassword'];
 		
-		//print($firstName."--".$lastName."--".$add1."--".$add2."--".$add3."--".$county."--".$gender."--".$dob."--".$phone."--".$email."--".$password);
-		
-		$connection=mysqli_connect("localhost","root",""); //("localhost","d567687_michael","marybary59");
-			
+		//getting db connection
+		$connection=mysqli_connect("localhost","root",""); 			
 		mysqli_select_db($connection,"project_database");
-			
+		
+		//execute update
 		mysqli_query($connection,"UPDATE series_athlete SET ath_first_name='$firstName', 
 		ath_last_name='$lastName', 
 		address_line_1='$add1', 
@@ -36,8 +32,7 @@
 		email='$email', 
 		password='$password' WHERE athlete_id='$athId'");
                
-		mysqli_close($connection);
-		header("Location: displayAccount.php");
-
+		mysqli_close($connection); //close db connection
+		header("Location: displayAccount.php"); //return to account info page
 	}
 ?>
