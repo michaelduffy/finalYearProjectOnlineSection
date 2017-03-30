@@ -44,7 +44,8 @@ $currentRacePoints=0;
 		print("<td>$currRaceDate</td>");
 		print("<td>$currentRacePoints</td>");
 		print("</tr>");				
-	}	
+	}
+	 mysqli_close($connection);
 ?>
 </table>
 </div>
