@@ -1,60 +1,57 @@
+<html>
 <?php
 	$athId="";
 	require_once('topNav.html'); 
-	if(isset($_COOKIE["cookieAthId"]))
+	if(isset($_COOKIE["cookieAthId"])) //if athlete is logged in
 	{
-	  // $cookieSet=True;
-		$athId=$_COOKIE["cookieAthId"];
-		$athFirstName="";
-		$athLastName="";
-		$add1="";
-		$add2="";
-		$add3="";
-		$county="";	
-		$gender="";
-		$dob="";
-		$phoneNum="";
-		$email="";
-		$pass="";
-	////////////////////////////////////////////////////////////////////////////////////////////////////////////////////  
-	
-	print("<head>
-			
-			<script src='js/jquery-1.12.3.js'> </script>
-			<link rel='stylesheet' type='text/css' href='js/jquery.datepick.css''>
-			<script type='text/javascript' src='js/jquery.plugin.js'> </script>
-			<script type='text/javascript' src='js/jquery.datepick.js'> </script>
-			<script src='js/jQueryTest.js'> </script>
-		 </head>");	
-	
-
-		      
-
-	$connection=mysqli_connect("localhost","root","");
-		//print("test 1");
-	mysqli_select_db($connection,"project_database");
-		//print("test 2");
-	$result = mysqli_query($connection,"select ath_first_name, ath_last_name, address_line_1, address_line_2, address_line_3, county, gender, date_of_birth, phone_num, email, password from series_athlete where athlete_id = $athId");
-
-	while($row = mysqli_fetch_array($result))
-		{
-			$athFirstName=$row['ath_first_name'];
-			$athLastName=$row['ath_last_name'];
-			$add1=$row['address_line_1'];
-			$add2=$row['address_line_2'];
-			$add3=$row['address_line_3'];
-			$county=$row['county'];			
-			$gender=$row['gender'];
-			$dob=$row['date_of_birth'];
-			$phoneNum=$row['phone_num'];
-			$email=$row['email'];
-			$pass=$row['password'];
-		}
+			$athId=$_COOKIE["cookieAthId"]; //asign cookie value to athId
+			$athFirstName="";
+			$athLastName="";
+			$add1="";
+			$add2="";
+			$add3="";
+			$county="";	
+			$gender="";
+			$dob="";
+			$phoneNum="";
+			$email="";
+			$pass="";
+		////////////////////////////////////////////////////////////////////////////////////////////////////////////////////  
 		
-		mysqli_close($connection);
+		print("<head>				
+				<script src='js/jquery-1.12.3.js'> </script>
+				<link rel='stylesheet' type='text/css' href='js/jquery.datepick.css''>
+				<script type='text/javascript' src='js/jquery.plugin.js'> </script>
+				<script type='text/javascript' src='js/jquery.datepick.js'> </script>
+				<script src='js/jQueryTest.js'> </script>
+			 </head>");	
+		print("<body>")	;
+		
+		//db connection		
+		$connection=mysqli_connect("localhost","root","");
+		mysqli_select_db($connection,"project_database");
+		//get athlete details from database
+		$result = mysqli_query($connection,"select ath_first_name, ath_last_name, address_line_1, address_line_2, address_line_3, county, gender, date_of_birth, phone_num, email, password from series_athlete where athlete_id = $athId");
+
+		while($row = mysqli_fetch_array($result))
+			{
+				$athFirstName=$row['ath_first_name'];
+				$athLastName=$row['ath_last_name'];
+				$add1=$row['address_line_1'];
+				$add2=$row['address_line_2'];
+				$add3=$row['address_line_3'];
+				$county=$row['county'];			
+				$gender=$row['gender'];
+				$dob=$row['date_of_birth'];
+				$phoneNum=$row['phone_num'];
+				$email=$row['email'];
+				$pass=$row['password'];
+			}
+			
+			mysqli_close($connection); //close db connection
 	}
 
-
+	//construct table to contain details form
 	print("<table border=1> <caption><b>My Details</b></caption>");
 						
 				 $countyCombo = "<select name='county'> 
@@ -68,7 +65,8 @@
 							<option value='Mayo'>Mayo</option>
 							<option value='Roscommon'>Roscommon</option>
 						   </select>";
-				if($gender == 'f')
+				//setting gender radio button selected based on athlete gender		   
+				if($gender == 'f') 
 				{				
 					$genderRadio = "<input type='radio' name='gender' value='m' />Male <input type='radio' name='gender' value='f' checked> Female";
 				}
@@ -96,5 +94,6 @@
 				 print("</form>");
 				 
 			print("</table>");
-
 ?>
+		</body>
+	

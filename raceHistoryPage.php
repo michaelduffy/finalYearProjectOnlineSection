@@ -1,4 +1,5 @@
-<?php require_once('topNav.html'); 
+<?php 
+require_once('topNav.html'); 
 
 $athId = $_GET['athId'];
 $athName = $_GET['athName'];
@@ -6,7 +7,6 @@ $currPosition=0;
 $currRaceName="";
 $currRaceDate="";
 $currentRacePoints=0;
-//print("athId = ".$athId."");
 
   $connection=mysqli_connect("localhost","root",""); 
   mysqli_select_db($connection,"project_database");
@@ -44,7 +44,8 @@ $currentRacePoints=0;
 		print("<td>$currRaceDate</td>");
 		print("<td>$currentRacePoints</td>");
 		print("</tr>");				
-	}	
+	}
+	 mysqli_close($connection);
 ?>
 </table>
 </div>
