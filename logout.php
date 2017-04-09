@@ -1,10 +1,9 @@
 <?php
-	if(isset($_COOKIE["cookieUsername"]))
+	if(isset($_COOKIE["cookieUsername"]))//if user logged in
 	{
-	//  $loggedUser=$_COOKIE["cookieUsername"];
-	  // print($loggedUser);
-	  setcookie("cookieUsername",null);
+	   //clear cookies
+	   setcookie("cookieUsername",null); 
 	   setcookie("cookieAthId",null);
 	}
-	header("Location: homePage.php");
+	header("Location: homePage.php"); //go to home page 
 ?>
