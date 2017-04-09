@@ -1,41 +1,38 @@
 <?php
         $cookieSet=False;
-	if(isset($_COOKIE["cookieUsername"]))
+	if(isset($_COOKIE["cookieUsername"]))//checking if user is logged in
 	{
 	   $cookieSet=True;
-	   $loggedUser=$_COOKIE["cookieUsername"];
-	  // print($loggedUser);
+	   $loggedUser=$_COOKIE["cookieUsername"]; //getting logged users name from cookie
 	}
 	
 ?>
 
 <head>
-<link rel="stylesheet" type="text/css" href="cssStyle/styles.css">
+	<link rel="stylesheet" type="text/css" href="cssStyle/styles.css">
 </head>
 
 <div class="mainHeader">
-<h3>Multi-Sport Race Series</h3>
+	<h3>Multi-Sport Race Series</h3>
 
-<?php
-	if($cookieSet)
-	{
-		print("<a href='homePage.php'>Home</a> &nbsp&nbsp&nbsp | &nbsp&nbsp 
-		<a href='getAthleteDetails.php'>Register</a> &nbsp&nbsp&nbsp | &nbsp&nbsp  
-		<a href='resultsPage.php'>RaceResults</a> &nbsp&nbsp&nbsp | &nbsp&nbsp 
-		<a href='seriesStandingsPage.php'>Series Standings</a> &nbsp&nbsp&nbsp | &nbsp&nbsp
-		<a href='displayAccount.php'>My Account</a> &nbsp&nbsp&nbsp | &nbsp&nbsp
-		<a href='logout.php'>Logout $loggedUser</a>");
-	} 
-	else 
-	{
-		print("<a href='homePage.php'>Home</a> &nbsp&nbsp&nbsp | &nbsp&nbsp 
-		<a href='getAthleteDetails.php'>Register</a> &nbsp&nbsp&nbsp | &nbsp&nbsp  
-		<a href='resultsPage.php'>RaceResults</a> &nbsp&nbsp&nbsp | &nbsp&nbsp 
-		<a href='seriesStandingsPage.php'>Series Standings</a> &nbsp&nbsp&nbsp | &nbsp&nbsp
-		<a href='login.php'>Login</a>");
-	} 
-?>
-<br/><br/>
-<!--<a href=''>Races</a><br/><br/>-->
-
+	<?php
+		if($cookieSet) //user logged in
+		{
+			print("<a href='homePage.php'>Home</a> &nbsp&nbsp&nbsp | &nbsp&nbsp 
+			<a href='getAthleteDetails.php'>Register</a> &nbsp&nbsp&nbsp | &nbsp&nbsp  
+			<a href='resultsPage.php'>RaceResults</a> &nbsp&nbsp&nbsp | &nbsp&nbsp 
+			<a href='seriesStandingsPage.php'>Series Standings</a> &nbsp&nbsp&nbsp | &nbsp&nbsp
+			<a href='displayAccount.php'>My Account</a> &nbsp&nbsp&nbsp | &nbsp&nbsp
+			<a href='logout.php'>Logout $loggedUser</a>");
+		} 
+		else  //user not logged in
+		{
+			print("<a href='homePage.php'>Home</a> &nbsp&nbsp&nbsp | &nbsp&nbsp 
+			<a href='getAthleteDetails.php'>Register</a> &nbsp&nbsp&nbsp | &nbsp&nbsp  
+			<a href='resultsPage.php'>RaceResults</a> &nbsp&nbsp&nbsp | &nbsp&nbsp 
+			<a href='seriesStandingsPage.php'>Series Standings</a> &nbsp&nbsp&nbsp | &nbsp&nbsp
+			<a href='login.php'>Login</a>");
+		} 
+	?>
+	<br/><br/>
 </div>

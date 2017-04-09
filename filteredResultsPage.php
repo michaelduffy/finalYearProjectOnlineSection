@@ -67,7 +67,7 @@
 	</div>
 	
 	<div id="raceTitleArea">
-		<?php print("<h4>$raceName (ages-$minAge to $maxAge, gender-$gender)</h4>")?>
+		<?php print("<h4>$raceName (Ages $minAge to $maxAge, gender-$gender) Series athletes only</h4>")?>
 		<hr/>
 	</div>
 	
