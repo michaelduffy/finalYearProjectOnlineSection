@@ -1,86 +1,77 @@
 #slider-range
 {
-		background-color:lightblue;
-		width:200;
-		border-top: 2px solid black;
-		border-right: 2px solid black;
-		border-bottom: 2px solid black;
-		border-left: 2px solid black;
-		float:left;
+	background-color:lightblue;
+	width:200;
+	border-top: 2px solid black;
+	border-right: 2px solid black;
+	border-bottom: 2px solid black;
+	border-left: 2px solid black;
+	float:left;
 }
 
 #filterArea
 {
-	 font-family: "Verdana", Times, Sans-serif;
+	font-family: "Verdana", Times, Sans-serif;
 }
 
-#selectionArea
+/*/////////////start of CSS associated with visualization//////////////////////////
+	parallel co-ordinates visualization CSS adapted from example by Mike Bostock
+	available at (https://bl.ocks.org/mbostock/1341021)*/
+svg 
 {
-
+	font: 15px sans-serif;
 }
 
-svg {
-	  font: 15px sans-serif;
-	}
+.background path 
+{
+  fill: none;
+  stroke: #ddd;
+  shape-rendering: crispEdges;
+}
 
-	.background path {
-	  fill: none;
-	  stroke: #ddd;
-	  shape-rendering: crispEdges;
-	}
-
-	.foreground path {
-	  fill: none;
-	  stroke: red; /* stroke: steelblue;*/
-	   stroke-width="10";
-	}
+.foreground path 
+{
+	fill: none;
+	stroke: red; 
+	stroke-width="10";
+}
 	
-	.foreground2 path {
-	  fill: none;
-	  stroke: lightblue;
+.foreground2 path 
+{
+	fill: none;
+	stroke: lightblue;
 	/*  shape-rendering: auto;*/
-	}
-
-	.brush .extent {
-	  fill-opacity: .3;
-	  stroke: #fff;
-	  shape-rendering: crispEdges;
-	}
-
-	.axis line,
-	.axis path {
-	  fill: none;
-	  stroke: #000;
-	  shape-rendering: auto;
-	 
-	}
-
-	.axis text {
-	  text-shadow: 0 1px 0 #fff, 1px 0 0 #fff, 0 -1px 0 #fff, -1px 0 0 #fff;
-	}
-
-#navigation
-{
-	float: left;
-	width: 15%;
-	/*min-width:140px; */
-	background-color: yellow; 
-	margin-top: 0%;
-	/*min-height: 250px; */
-	border:solid 2px #009900;
-	
-	/*-webkit-border-radius:15px;
-	-moz-border-radius:15px;
-	border-radius:15px; */
-	/*-webkit-box-shadow:5px 5px 5px #828282;
-	-moz-box-shadow:5px 5px 5px #828282;
-	box-shadow:5px 5px 5px #828282; */
 }
 
-.mainHeader
+.brush .extent 
 {
-	
-   
+	fill-opacity: .3;
+	stroke: #fff;
+	shape-rendering: crispEdges;
+}
+
+.axis line,
+.axis path 
+{
+	fill: none;
+	stroke: #000;
+	shape-rendering: auto;	 
+}
+
+.axis text 
+{
+	text-shadow: 0 1px 0 #fff, 1px 0 0 #fff, 0 -1px 0 #fff, -1px 0 0 #fff;
+}
+/* ///////////end of CSS associated with visualization/////////////////////////////////*/
+
+#homePageContent
+{
+	 font-family: "Verdana", Times, Sans-serif;
+	 padding-left:30px;
+}
+
+.mainHeader /*Header and navigation area*/
+{	   
 	background-color: #0C5; 
 	border:solid 2px #009900;
 	 text-align: center;
@@ -93,179 +84,118 @@ svg {
      background: linear-gradient(red,lightblue); /* Standard syntax */ 
 }
 
-.mainContent
+.mainContent /* main content area*/
 {
 	background-color: lightgrey; 
-	/*border:solid 2px #009900; */
 	 text-align: center;
 	 font-family: "Verdana", Times, Sans-serif;
-	 /*font-size: 25px;
-	/* background: red; /* For browsers that do not support gradients */
-
 }
 
-
-
-#wrapper
+.mainHeader a /*links inside main header area*/
 {
-	margin: auto;
-	/*width: 80%;
-	min-height: 400px;
-	border: solid 3px;
-	min-width:800px;
-	max-width:900px;
-	-webkit-border-radius:15px;
-	-moz-border-radius:15px;
-	border-radius:15px;
-	-webkit-box-shadow:5px 5px 5px #828282;
-	-moz-box-shadow:5px 5px 5px #828282;
-	box-shadow:5px 5px 5px #828282;
-	padding-bottom:10px; */
-	
-	
-}
-
-.mainHeader a
-{
-	color:white; 
-	 font-size: 15px;
-	/*margin-left:20%; */
+    color:white; 
+	font-size: 15px;
 	text-decoration:none;
 	font-family: "Verdana", Times, Sans-serif;
 }
 
-.mainHeader a:hover
+.mainHeader a:hover /*hover action on links inside main header area*/
 {
 	color:black;	
 }
 
-#slider-range
+#slider-range/*css associated with div housing the dual slider*/
 {
 	width: 30%;
-	 margin-left:90px;
+	margin-left:90px;
 }
-#filterSelect
-{
-	
-}
-#sliderLabelId
+
+#sliderLabelId /* label for dual slider*/
 {
 	margin-left:90px;
 }
-#filterArea
+
+#selectionArea /*css associated with div housing the race selection options*/
 {
-	/*float:right;*/
+	font-family: "Verdana", Times, Sans-serif;
+	font-size: 15px;
+	margin-left:90px;
+	margin-top:20px;
+    margin-bottom:20px;
 }
 
-#selectionArea
-{
-	/*width: 40%;
-	float:left;*/
-	 font-family: "Verdana", Times, Sans-serif;
-	 font-size: 15px;
-  margin-left:90px;
-   margin-top:20px;
-    margin-bottom:20px;
-  /* color:blue;
-   padding-right:10px;
-   text-decoration:none;*/
-}
-#raceTitleArea
+#raceTitleArea  /*css for results page title*/
 {
 	 font-family: "Verdana", Times, Sans-serif;
 	text-align:center;	
-  /* color:blue;
-   padding-right:10px;
-   text-decoration:none;*/
 }
 
-.tableClass
+.tableClass 
 {
 	font-family: "Verdana", Times, Sans-serif;
 	 font-size: 13px;
 }
 
-#historyTitleArea
+#historyTitleArea /*css for history page title*/
 {
 	 font-family: "Verdana", Times, Sans-serif;
 	text-align:center;	
-  /* color:blue;
-   padding-right:10px;
-   text-decoration:none;*/
 }
 
-#resultTable
+#resultTable /*css for results table*/
 {
 	font-family: "Verdana", Times, Sans-serif;
-	 font-size: 12px;
+	font-size: 12px;
 }
 
-.seriesStandingsTitleClass
+.seriesStandingsTitleClass  /*css for series standings page title*/
 {
 	 font-family: "Verdana", Times, Sans-serif;
 	text-align:center;	
 }
-
 
 .historyBtnClass
 {
-	 font: 11px Arial;
-	 font-family: "Verdana", Times, Sans-serif;
-  text-decoration: none;
-  background-color: #EEEEEE;
-  color: #333333;
-  padding: 2px 6px 2px 6px;
-  border-top: 1px solid #CCCCCC;
-  border-right: 1px solid #333333;
-  border-bottom: 1px solid #333333;
-  border-left: 1px solid #CCCCCC;
+	font: 11px Arial;
+	font-family: "Verdana", Times, Sans-serif;
+	text-decoration: none;
+	background-color: #EEEEEE;
+	color: #333333;
+	padding: 2px 6px 2px 6px;
+	border-top: 1px solid #CCCCCC;
+	border-right: 1px solid #333333;
+	border-bottom: 1px solid #333333;
+	border-left: 1px solid #CCCCCC;
 }
 
-button
+button /*css for all buttons*/
 {
 	height:25px;
 	width:130px;
-	 font-size: 15px;
+	font-size: 15px;
 }
 
-html
+table /*css for all tables*/
 {
-	background-color:#EBG6E3;
-
+	border-spacing:5px;
+	border:none;
+	text-align:left;	
+	font-family: "Verdana", Times, Sans-serif;
+	margin: 0 auto;
 }
-
-table
-{
-	/*background: #F9E7D0;*/
-border-spacing:5px;
-border:none;
-/*; */
-text-align:left;	
- font-family: "Verdana", Times, Sans-serif;
-margin: 0 auto;
-}
-th
+th /*css for all table headers*/
 {
 	background-color:#5DC4D0;
 	color:white;
 }
-th:first-of-type
-{
-	/*background-color: #FFC; */
-	/*border:none;*/
-}
-td:first-of-type
-{
-	/*background-color:blue; */
-	/*color:white; */
-}
-input
+
+input /*css for all inputs*/
 {
 	 font-family: "Verdana", Times, Sans-serif;
 	 font-size: 15px;
 }
 
-select
+select /*css for all combo boxes*/
 {
 	 font-family: "Verdana", Times, Sans-serif;
 	 font-size: 15px;
